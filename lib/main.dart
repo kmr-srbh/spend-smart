@@ -18,6 +18,7 @@ class MainApp extends StatelessWidget {
         home: const Scaffold(
           body: Home(),
         ),
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
             colorScheme: lightDynamic ?? ThemeData.light().colorScheme),
         darkTheme:

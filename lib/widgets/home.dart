@@ -31,26 +31,56 @@ class _Home extends State<Home> {
       date: DateTime.now(),
       time: DateTime.now(),
       category: Category.travel,
+    ),
+    Expense(
+      title: 'Flutter Course',
+      amount: 389,
+      date: DateTime.now(),
+      time: DateTime.now(),
+      category: Category.work,
+    ),
+    Expense(
+      title: 'Samosa x2',
+      amount: 14,
+      date: DateTime.now(),
+      time: DateTime.now(),
+      category: Category.food,
+    ),
+    Expense(
+      title: 'Metro fare',
+      amount: 15,
+      date: DateTime.now(),
+      time: DateTime.now(),
+      category: Category.travel,
     )
   ];
+
+  int get amountSpent {
+    int totalAmount = 0;
+    for (Expense expense in _registeredExpenses) {
+      totalAmount += expense.amount;
+    }
+    return totalAmount;
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(),
         body: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.fromLTRB(24, 0, 24, 24),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(24, 24, 24, 24),
               child: Text(
-                '₹ 0',
-                style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+                '₹ ${amountSpent.toString()}',
+                style:
+                    const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
               ),
             ),
             Expanded(child: ExpenseList(expenses: _registeredExpenses)),
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {}, // TODO: Add function to register expenses
           child: const Icon(Icons.add_rounded),
         ),
       );
