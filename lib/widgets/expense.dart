@@ -54,11 +54,11 @@ class Expense extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       IconButton(
-                        onPressed: () {}, // TODO: Add edit function
+                        onPressed: () {}, // TODO: Add functionality to edit expenses
                         icon: const Icon(Icons.edit_rounded),
                       ),
                       IconButton(
-                        onPressed: () {}, // TODO: Add delete functiona
+                        onPressed: () {}, // TODO: Add functionality to delete expenses
                         icon: const Icon(Icons.delete_rounded),
                       )
                     ],

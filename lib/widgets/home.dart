@@ -67,23 +67,58 @@ class _Home extends State<Home> {
   void _showInputDialog() {
     showDialog(
       context: context,
-      builder: (dialogContext) => const AlertDialog(
-        title: Text('Add expense'),
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Add expense'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            TextField(
+            const TextField(
               decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Name',
-                  errorText: null),
+                border: OutlineInputBorder(),
+                labelText: 'Name',
+                errorText: null,
+              ),
             ),
-            SizedBox(height: 16),
-            TextField(
+            const SizedBox(height: 16),
+            const TextField(
               decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Amount',
-                  errorText: null),
+                border: OutlineInputBorder(),
+                labelText: 'Amount',
+                errorText: null,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                const Icon(Icons.calendar_month_rounded),
+                TextButton(
+                  onPressed: () {},
+                  child: const Text('Date'),
+                ),
+                const Spacer(),
+                const Icon(Icons.access_time_rounded),
+                TextButton(
+                  onPressed: () {},
+                  child: const Text('Time'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 48),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Cancel'),
+                ),
+                const SizedBox(width: 16),
+                ElevatedButton(
+                  onPressed: () {}, // TODO: Add functionality to add expenses
+                  child: const Text('Add'),
+                )
+              ],
             )
           ],
         ),
