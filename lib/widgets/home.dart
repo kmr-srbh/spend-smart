@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:spend_smart/widgets/expense.dart';
 import 'package:spend_smart/widgets/expense_list.dart';
 
@@ -63,6 +64,33 @@ class _Home extends State<Home> {
     return totalAmount;
   }
 
+  void _showInputDialog() {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => const AlertDialog(
+        title: Text('Add expense'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Name',
+                  errorText: null),
+            ),
+            SizedBox(height: 24),
+            TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Amount',
+                  errorText: null),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(),
@@ -79,8 +107,8 @@ class _Home extends State<Home> {
             Expanded(child: ExpenseList(expenses: _registeredExpenses)),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {}, // TODO: Add function to register expenses
+        floatingActionButton: FloatingActionButton.large(
+          onPressed: _showInputDialog,
           child: const Icon(Icons.add_rounded),
         ),
       );
