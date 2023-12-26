@@ -93,7 +93,7 @@ class _Home extends State<Home> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(scrolledUnderElevation: 0),
         body: Column(
           children: [
             Padding(
