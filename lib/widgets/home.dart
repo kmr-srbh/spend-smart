@@ -19,7 +19,7 @@ class _Home extends State<Home> {
       category: Category.work,
     ),
     Expense(
-      title: 'Samosa',
+      title: 'Samosa x2',
       amount: 14,
       date: DateTime.now(),
       time: DateTime.now(),
@@ -36,7 +36,19 @@ class _Home extends State<Home> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: ExpenseList(expenses: _registeredExpenses),
+        appBar: AppBar(),
+        body: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.fromLTRB(24, 0, 24, 24),
+              child: Text(
+                '₹ 0',
+                style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Expanded(child: ExpenseList(expenses: _registeredExpenses)),
+          ],
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
           child: const Icon(Icons.add_rounded),

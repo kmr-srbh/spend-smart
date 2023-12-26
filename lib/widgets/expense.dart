@@ -32,6 +32,7 @@ class Expense extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Card(
+        margin: const EdgeInsets.fromLTRB(12, 12, 12, 0),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -41,14 +42,30 @@ class Expense extends StatelessWidget {
                 children: [
                   Icon(categoryIcons[category]),
                   const SizedBox(width: 8),
-                  Text(title,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      )),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      IconButton(
+                        onPressed: () {}, // TODO: Add edit function
+                        icon: const Icon(Icons.edit_rounded),
+                      ),
+                      IconButton(
+                        onPressed: () {}, // TODO: Add delete functiona
+                        icon: const Icon(Icons.delete_rounded),
+                      )
+                    ],
+                  )
                 ],
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
