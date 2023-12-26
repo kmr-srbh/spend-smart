@@ -78,7 +78,7 @@ class _Home extends State<Home> {
                   labelText: 'Name',
                   errorText: null),
             ),
-            SizedBox(height: 24),
+            SizedBox(height: 16),
             TextField(
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -107,9 +107,10 @@ class _Home extends State<Home> {
             Expanded(child: ExpenseList(expenses: _registeredExpenses)),
           ],
         ),
-        floatingActionButton: FloatingActionButton.large(
+        floatingActionButton: FloatingActionButton.extended(
           onPressed: _showInputDialog,
-          child: const Icon(Icons.add_rounded),
+          label: const Text('Add expense'),
+          icon: const Icon(Icons.add_rounded),
         ),
       );
 }
