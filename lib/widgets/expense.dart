@@ -27,8 +27,10 @@ class Expense extends StatelessWidget {
   final DateTime time;
   final Category category;
 
-  String get formattedDate => '${date.day}-${date.month}-${date.year}';
-  String get formattedTime => '${time.hour}:${time.minute}';
+  String get formattedDate =>
+      '${date.day.toString()}-${date.month.toString()}-${date.year.toString()}';
+  String get formattedTime =>
+      '${time.hour.toString()}:${time.minute.toString()}';
 
   @override
   Widget build(BuildContext context) => Card(
@@ -54,11 +56,13 @@ class Expense extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       IconButton(
-                        onPressed: () {}, // TODO: Add functionality to edit expenses
+                        onPressed:
+                            () {}, // TODO: Add functionality to edit expenses
                         icon: const Icon(Icons.edit_rounded),
                       ),
                       IconButton(
-                        onPressed: () {}, // TODO: Add functionality to delete expenses
+                        onPressed:
+                            () {}, // TODO: Add functionality to delete expenses
                         icon: const Icon(Icons.delete_rounded),
                       )
                     ],

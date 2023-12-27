@@ -11,6 +11,14 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
+  final _nameController = TextEditingController();
+  final _amountController = TextEditingController();
+
+  Category _selectedCategory = Category.food;
+  final now = DateTime.now();
+  DateTime? _selectedDate;
+  TimeOfDay? _selectedTime;
+
   final List<Expense> _registeredExpenses = [
     Expense(
       title: 'Flutter Course',
@@ -67,62 +75,126 @@ class _Home extends State<Home> {
   void _showInputDialog() {
     showDialog(
       context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: const Text('Add expense'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Name',
-                errorText: null,
+      builder: (dialogContext) => StatefulBuilder(builder: (context, setState) {
+        void openDatePicker() async {
+          final chosenDate = await showDatePicker(
+              context: context,
+              firstDate: DateTime(now.year - 1, now.month, now.day),
+              lastDate: now);
+
+          setState(() {
+            _selectedDate = chosenDate;
+          });
+        }
+
+        void openTimePicker() async {
+          final now = DateTime.now();
+          final chosenTime = await showTimePicker(
+              context: context,
+              initialTime: TimeOfDay(hour: now.hour, minute: now.minute));
+
+          setState(() {
+            _selectedTime = chosenTime;
+          });
+        }
+
+        return AlertDialog(
+          insetPadding: const EdgeInsets.symmetric(horizontal: 24),
+          title: const Text('Add expense'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Name',
+                  errorText: null,
+                ),
+                controller: _nameController,
               ),
-            ),
-            const SizedBox(height: 16),
-            const TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Amount',
-                errorText: null,
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Amount',
+                        prefixText: '₹ ',
+                        errorText: null,
+                      ),
+                      controller: _amountController,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: DropdownButtonFormField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                        ),
+                        value: _selectedCategory,
+                        items: Category.values
+                            .map((category) => DropdownMenuItem(
+                                value: category,
+                                child: Row(
+                                  children: [
+                                    Icon(categoryIcons[category]),
+                                    const SizedBox(width: 8),
+                                    Text(category.name.toUpperCase())
+                                  ],
+                                )))
+                            .toList(),
+                        onChanged: (category) {
+                          if (category == null) return;
+                          setState(() {
+                            _selectedCategory = category;
+                          });
+                        }),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                const Icon(Icons.calendar_month_rounded),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text('Date'),
-                ),
-                const Spacer(),
-                const Icon(Icons.access_time_rounded),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text('Time'),
-                ),
-              ],
-            ),
-            const SizedBox(height: 48),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('Cancel'),
-                ),
-                const SizedBox(width: 16),
-                ElevatedButton(
-                  onPressed: () {}, // TODO: Add functionality to add expenses
-                  child: const Text('Add'),
-                )
-              ],
-            )
-          ],
-        ),
-      ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  const Icon(Icons.calendar_month_rounded),
+                  TextButton(
+                    onPressed: openDatePicker,
+                    child: Text(_selectedDate == null
+                        ? 'Date'
+                        : '${_selectedDate?.day.toString()}-${_selectedDate?.month}-${_selectedDate?.year.toString()}'),
+                  ),
+                  const Spacer(),
+                  const Icon(Icons.access_time_rounded),
+                  TextButton(
+                    onPressed: openTimePicker,
+                    child: Text(_selectedTime == null
+                        ? 'Time'
+                        : '${_selectedTime?.hour}:${_selectedTime?.minute}'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 36),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Cancel'),
+                  ),
+                  const SizedBox(width: 16),
+                  ElevatedButton(
+                    onPressed: () {}, // TODO: Add functionality to add expenses
+                    child: const Text('Add'),
+                  )
+                ],
+              )
+            ],
+          ),
+        );
+      }),
     );
   }
 
