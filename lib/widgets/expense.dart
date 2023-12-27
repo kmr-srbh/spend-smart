@@ -24,13 +24,12 @@ class Expense extends StatelessWidget {
   final String title;
   final int amount;
   final DateTime date;
-  final DateTime time;
+  final TimeOfDay time;
   final Category category;
 
-  String get formattedDate =>
-      '${date.day.toString()}-${date.month.toString()}-${date.year.toString()}';
+  String get formattedDate => '${date.day}-${date.month}-${date.year}';
   String get formattedTime =>
-      '${time.hour.toString()}:${time.minute.toString()}';
+      '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
 
   @override
   Widget build(BuildContext context) => Card(
@@ -52,21 +51,16 @@ class Expense extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      IconButton(
-                        onPressed:
-                            () {}, // TODO: Add functionality to edit expenses
-                        icon: const Icon(Icons.edit_rounded),
-                      ),
-                      IconButton(
-                        onPressed:
-                            () {}, // TODO: Add functionality to delete expenses
-                        icon: const Icon(Icons.delete_rounded),
+                  PopupMenuButton(
+                    itemBuilder: (context) => <PopupMenuEntry>[
+                      PopupMenuItem(child: const Text('Edit'), onTap: () {}),
+                      PopupMenuItem(
+                        child: const Text('Delete'),
+                        onTap: () {},
                       )
                     ],
-                  )
+                    icon: const Icon(Icons.more_vert_rounded),
+                  ),
                 ],
               ),
               const SizedBox(height: 16),

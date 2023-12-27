@@ -15,54 +15,19 @@ class _Home extends State<Home> {
   final _amountController = TextEditingController();
 
   Category _selectedCategory = Category.food;
+
   final now = DateTime.now();
   DateTime? _selectedDate;
   TimeOfDay? _selectedTime;
 
-  final List<Expense> _registeredExpenses = [
-    Expense(
-      title: 'Flutter Course',
-      amount: 389,
-      date: DateTime.now(),
-      time: DateTime.now(),
-      category: Category.work,
-    ),
-    Expense(
-      title: 'Samosa x2',
-      amount: 14,
-      date: DateTime.now(),
-      time: DateTime.now(),
-      category: Category.food,
-    ),
-    Expense(
-      title: 'Metro fare',
-      amount: 15,
-      date: DateTime.now(),
-      time: DateTime.now(),
-      category: Category.travel,
-    ),
-    Expense(
-      title: 'Flutter Course',
-      amount: 389,
-      date: DateTime.now(),
-      time: DateTime.now(),
-      category: Category.work,
-    ),
-    Expense(
-      title: 'Samosa x2',
-      amount: 14,
-      date: DateTime.now(),
-      time: DateTime.now(),
-      category: Category.food,
-    ),
-    Expense(
-      title: 'Metro fare',
-      amount: 15,
-      date: DateTime.now(),
-      time: DateTime.now(),
-      category: Category.travel,
-    )
-  ];
+  final List<Expense> _registeredExpenses = [];
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _amountController.dispose();
+    super.dispose();
+  }
 
   int get amountSpent {
     int totalAmount = 0;
@@ -72,7 +37,20 @@ class _Home extends State<Home> {
     return totalAmount;
   }
 
+  void _addExpense(Expense expense) {
+    setState(() {
+      _registeredExpenses.add(expense);
+    });
+  }
+
   void _showInputDialog() {
+    _nameController.clear();
+    _amountController.clear();
+
+    _selectedCategory = Category.food;
+    _selectedDate = null;
+    _selectedTime = null;
+
     showDialog(
       context: context,
       builder: (dialogContext) => StatefulBuilder(builder: (context, setState) {
@@ -162,7 +140,7 @@ class _Home extends State<Home> {
                     onPressed: openDatePicker,
                     child: Text(_selectedDate == null
                         ? 'Date'
-                        : '${_selectedDate?.day.toString()}-${_selectedDate?.month}-${_selectedDate?.year.toString()}'),
+                        : '${_selectedDate?.day}-${_selectedDate?.month}-${_selectedDate?.year}'),
                   ),
                   const Spacer(),
                   const Icon(Icons.access_time_rounded),
@@ -170,23 +148,33 @@ class _Home extends State<Home> {
                     onPressed: openTimePicker,
                     child: Text(_selectedTime == null
                         ? 'Time'
-                        : '${_selectedTime?.hour}:${_selectedTime?.minute}'),
+                        : '${_selectedTime?.hour.toString().padLeft(2, '0')}:${_selectedTime?.minute.toString().padLeft(2, '0')}'),
                   ),
                 ],
               ),
-              const SizedBox(height: 36),
+              const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.of(dialogContext).pop();
                     },
                     child: const Text('Cancel'),
                   ),
                   const SizedBox(width: 16),
                   ElevatedButton(
-                    onPressed: () {}, // TODO: Add functionality to add expenses
+                    onPressed: () {
+                      _addExpense(
+                        Expense(
+                            title: _nameController.text,
+                            amount: int.tryParse(_amountController.text)!,
+                            date: _selectedDate!,
+                            time: _selectedTime!,
+                            category: _selectedCategory),
+                      );
+                      Navigator.of(dialogContext).pop();
+                    },
                     child: const Text('Add'),
                   )
                 ],
