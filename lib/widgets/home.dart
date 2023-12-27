@@ -14,7 +14,7 @@ class _Home extends State<Home> {
   final _nameController = TextEditingController();
   final _amountController = TextEditingController();
 
-  Category _selectedCategory = Category.food;
+  Category _selectedCategory = Category.grocery;
 
   final now = DateTime.now();
   DateTime? _selectedDate;
@@ -47,7 +47,7 @@ class _Home extends State<Home> {
     _nameController.clear();
     _amountController.clear();
 
-    _selectedCategory = Category.food;
+    _selectedCategory = Category.grocery;
     _selectedDate = null;
     _selectedTime = null;
 
@@ -84,47 +84,63 @@ class _Home extends State<Home> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 4),
-                TextField(
+                TextFormField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Name',
-                    errorText: null,
                   ),
                   controller: _nameController,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Name cannot be empty';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 8),
-                TextField(
+                TextFormField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Amount',
                     prefixText: '₹ ',
-                    errorText: null,
                   ),
                   controller: _amountController,
+                  validator: (value) {
+                    if (value == null || int.tryParse(value)! <= 0) {
+                      return 'Amount cannot be less than 0';
+                    }
+                    return null;
+                  },
                   keyboardType: TextInputType.number,
                 ),
                 const SizedBox(height: 8),
                 DropdownButtonFormField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                    value: _selectedCategory,
-                    items: Category.values
-                        .map((category) => DropdownMenuItem(
-                            value: category,
-                            child: Row(
-                              children: [
-                                Icon(categoryIcons[category]),
-                                const SizedBox(width: 8),
-                                Text(category.name.toUpperCase())
-                              ],
-                            )))
-                        .toList(),
-                    onChanged: (category) {
-                      setState(() {
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                  value: _selectedCategory,
+                  items: Category.values
+                      .map(
+                        (category) => DropdownMenuItem(
+                          value: category,
+                          child: Row(
+                            children: [
+                              Icon(categoryIcons[category]),
+                              const SizedBox(width: 8),
+                              Text(category.name.toUpperCase())
+                            ],
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (category) {
+                    setState(
+                      () {
                         _selectedCategory = category!;
-                      });
-                    }),
+                      },
+                    );
+                  },
+                ),
                 const SizedBox(height: 8),
                 Row(
                   children: [
@@ -145,7 +161,7 @@ class _Home extends State<Home> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 
 enum Category {
-  food,
+  grocery,
   work,
   travel,
+  leisure,
+  bills,
+  medical,
 }
 
 Map<Category, IconData> categoryIcons = {
-  Category.food: Icons.fastfood_rounded,
+  Category.grocery: Icons.local_grocery_store_rounded,
   Category.work: Icons.laptop_rounded,
   Category.travel: Icons.directions_walk_rounded,
+  Category.leisure: Icons.restaurant_rounded,
+  Category.bills: Icons.currency_rupee_rounded,
+  Category.medical: Icons.local_hospital_rounded,
 };
 
 class Expense extends StatelessWidget {
