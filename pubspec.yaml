@@ -10,6 +10,8 @@ dependencies:
   dynamic_color: ^1.6.9
   flutter:
     sdk: flutter
+  path: ^1.8.3
+  sqflite: ^2.3.0
 
 dev_dependencies:
   flutter_test:
