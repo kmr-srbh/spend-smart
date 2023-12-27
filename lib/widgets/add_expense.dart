@@ -46,37 +46,70 @@ class _AddExpense extends State<AddExpense> {
     });
   }
 
+  void _validateInput() {
+    final int? amount = int.tryParse(_amountController.text);
+    final bool isInvalidAmount = amount == null || amount <= 0;
+    if (_nameController.text.trim().isEmpty ||
+        isInvalidAmount ||
+        _selectedDate == null ||
+        _selectedTime == null) {
+      showDialog(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: const Row(
+            children: [
+              Icon(Icons.warning_rounded),
+              SizedBox(width: 8),
+              Text('Something is not right')
+            ],
+          ),
+          content: const Text(
+              'Please check the data you have entered to see if it is correct.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(dialogContext);
+              },
+              child: const Text('Okay'),
+            )
+          ],
+        ),
+      );
+      return;
+    }
+
+    widget.onExpenseAdded(
+      Expense(
+          title: _nameController.text,
+          amount: int.tryParse(_amountController.text)!,
+          date: _selectedDate!,
+          time: _selectedTime!,
+          category: _selectedCategory),
+    );
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) => Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 4),
-          TextFormField(
+          TextField(
             decoration: const InputDecoration(
-                border: OutlineInputBorder(), labelText: 'Name'),
+              border: OutlineInputBorder(),
+              labelText: 'Name',
+            ),
             controller: _nameController,
-            validator: (value) {
-              if (value == null || value.trim().isEmpty) {
-                return 'Name cannot be empty';
-              }
-              return null;
-            },
           ),
           const SizedBox(height: 8),
-          TextFormField(
+          TextField(
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Amount',
               prefixText: '₹ ',
             ),
             controller: _amountController,
-            validator: (value) {
-              if (value == null || int.tryParse(value)! <= 0) {
-                return 'Amount cannot be less than 0';
-              }
-              return null;
-            },
             keyboardType: TextInputType.number,
           ),
           const SizedBox(height: 8),
@@ -103,7 +136,7 @@ class _AddExpense extends State<AddExpense> {
               setState(
                 () {
                   _selectedCategory = category!;
-                }
+                },
               );
             },
           ),
@@ -139,17 +172,7 @@ class _AddExpense extends State<AddExpense> {
               ),
               const SizedBox(width: 8),
               ElevatedButton(
-                onPressed: () {
-                  widget.onExpenseAdded(
-                    Expense(
-                        title: _nameController.text,
-                        amount: int.tryParse(_amountController.text)!,
-                        date: _selectedDate!,
-                        time: _selectedTime!,
-                        category: _selectedCategory),
-                  );
-                  Navigator.pop(context);
-                },
+                onPressed: _validateInput,
                 child: const Text('Add'),
               )
             ],
