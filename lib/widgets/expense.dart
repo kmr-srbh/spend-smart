@@ -50,17 +50,6 @@ class Expense extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const Spacer(),
-                  PopupMenuButton(
-                    itemBuilder: (context) => <PopupMenuEntry>[
-                      PopupMenuItem(child: const Text('Edit'), onTap: () {}),
-                      PopupMenuItem(
-                        child: const Text('Delete'),
-                        onTap: () {},
-                      )
-                    ],
-                    icon: const Icon(Icons.more_vert_rounded),
-                  ),
                 ],
               ),
               const SizedBox(height: 16),

@@ -77,109 +77,103 @@ class _Home extends State<Home> {
         }
 
         return AlertDialog(
-          insetPadding: const EdgeInsets.symmetric(horizontal: 24),
           title: const Text('Add expense'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Name',
-                  errorText: null,
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 4),
+                TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Name',
+                    errorText: null,
+                  ),
+                  controller: _nameController,
                 ),
-                controller: _nameController,
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Amount',
-                        prefixText: '₹ ',
-                        errorText: null,
-                      ),
-                      controller: _amountController,
+                const SizedBox(height: 8),
+                TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Amount',
+                    prefixText: '₹ ',
+                    errorText: null,
+                  ),
+                  controller: _amountController,
+                  keyboardType: TextInputType.number,
+                ),
+                const SizedBox(height: 8),
+                DropdownButtonFormField(
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: DropdownButtonFormField(
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                        ),
-                        value: _selectedCategory,
-                        items: Category.values
-                            .map((category) => DropdownMenuItem(
-                                value: category,
-                                child: Row(
-                                  children: [
-                                    Icon(categoryIcons[category]),
-                                    const SizedBox(width: 8),
-                                    Text(category.name.toUpperCase())
-                                  ],
-                                )))
-                            .toList(),
-                        onChanged: (category) {
-                          if (category == null) return;
-                          setState(() {
-                            _selectedCategory = category;
-                          });
-                        }),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  const Icon(Icons.calendar_month_rounded),
-                  TextButton(
-                    onPressed: openDatePicker,
-                    child: Text(_selectedDate == null
-                        ? 'Date'
-                        : '${_selectedDate?.day}-${_selectedDate?.month}-${_selectedDate?.year}'),
-                  ),
-                  const Spacer(),
-                  const Icon(Icons.access_time_rounded),
-                  TextButton(
-                    onPressed: openTimePicker,
-                    child: Text(_selectedTime == null
-                        ? 'Time'
-                        : '${_selectedTime?.hour.toString().padLeft(2, '0')}:${_selectedTime?.minute.toString().padLeft(2, '0')}'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(dialogContext).pop();
-                    },
-                    child: const Text('Cancel'),
-                  ),
-                  const SizedBox(width: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      _addExpense(
-                        Expense(
-                            title: _nameController.text,
-                            amount: int.tryParse(_amountController.text)!,
-                            date: _selectedDate!,
-                            time: _selectedTime!,
-                            category: _selectedCategory),
-                      );
-                      Navigator.of(dialogContext).pop();
-                    },
-                    child: const Text('Add'),
-                  )
-                ],
-              )
-            ],
+                    value: _selectedCategory,
+                    items: Category.values
+                        .map((category) => DropdownMenuItem(
+                            value: category,
+                            child: Row(
+                              children: [
+                                Icon(categoryIcons[category]),
+                                const SizedBox(width: 8),
+                                Text(category.name.toUpperCase())
+                              ],
+                            )))
+                        .toList(),
+                    onChanged: (category) {
+                      setState(() {
+                        _selectedCategory = category!;
+                      });
+                    }),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    const Icon(Icons.calendar_month_rounded),
+                    TextButton(
+                      onPressed: openDatePicker,
+                      child: Text(_selectedDate == null
+                          ? 'Date'
+                          : '${_selectedDate?.day}-${_selectedDate?.month}-${_selectedDate?.year}'),
+                    ),
+                    const Spacer(),
+                    const Icon(Icons.access_time_rounded),
+                    TextButton(
+                      onPressed: openTimePicker,
+                      child: Text(_selectedTime == null
+                          ? 'Time'
+                          : '${_selectedTime?.hour.toString().padLeft(2, '0')}:${_selectedTime?.minute.toString().padLeft(2, '0')}'),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(dialogContext).pop();
+                      },
+                      child: const Text('Cancel'),
+                    ),
+                    const SizedBox(width: 8),
+                    ElevatedButton(
+                      onPressed: () {
+                        _addExpense(
+                          Expense(
+                              title: _nameController.text,
+                              amount: int.tryParse(_amountController.text)!,
+                              date: _selectedDate!,
+                              time: _selectedTime!,
+                              category: _selectedCategory),
+                        );
+                        Navigator.of(dialogContext).pop();
+                      },
+                      child: const Text('Add'),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         );
       }),
