@@ -8,21 +8,11 @@ class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
-  State<StatefulWidget> createState() => _Home();
+  State<StatefulWidget> createState() => _HomeState();
 }
 
-class _Home extends State<Home> {
-  final _nameController = TextEditingController();
-  final _amountController = TextEditingController();
-
+class _HomeState extends State<Home> {
   final List<Expense> _registeredExpenses = [];
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _amountController.dispose();
-    super.dispose();
-  }
 
   int get amountSpent {
     int totalAmount = 0;
@@ -36,6 +26,30 @@ class _Home extends State<Home> {
     setState(() {
       _registeredExpenses.add(expense);
     });
+  }
+
+  void _removeExpense(Expense expense) {
+    final int expenseIndex = _registeredExpenses.indexOf(expense);
+
+    setState(() {
+      _registeredExpenses.remove(expense);
+    });
+
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 5),
+        content: const Text('Expense deleted.'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            setState(() {
+              _registeredExpenses.insert(expenseIndex, expense);
+            });
+          },
+        ),
+      ),
+    );
   }
 
   void _showInputDialog() {
@@ -63,7 +77,11 @@ class _Home extends State<Home> {
                     const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
               ),
             ),
-            Expanded(child: ExpenseList(expenses: _registeredExpenses)),
+            Expanded(
+                child: ExpenseList(
+              expenses: _registeredExpenses,
+              removeExpense: _removeExpense,
+            )),
           ],
         ),
         floatingActionButton: FloatingActionButton.extended(
