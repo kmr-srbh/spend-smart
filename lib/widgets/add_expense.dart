@@ -11,10 +11,10 @@ class AddExpense extends StatefulWidget {
   final void Function(Expense expense) onExpenseAdded;
 
   @override
-  State<StatefulWidget> createState() => _AddExpense();
+  State<StatefulWidget> createState() => _AddExpenseState();
 }
 
-class _AddExpense extends State<AddExpense> {
+class _AddExpenseState extends State<AddExpense> {
   final _nameController = TextEditingController();
   final _amountController = TextEditingController();
 
