@@ -10,6 +10,7 @@ dependencies:
   dynamic_color: ^1.6.9
   flutter:
     sdk: flutter
+  sembast: ^3.5.0+1
 
 dev_dependencies:
   flutter_test:
