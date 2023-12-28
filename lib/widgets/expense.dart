@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
+
+const uuid = Uuid();
 
 enum Category {
   grocery,
@@ -19,14 +22,16 @@ Map<Category, IconData> categoryIcons = {
 };
 
 class Expense extends StatelessWidget {
-  const Expense(
+  Expense(
       {super.key,
       required this.title,
       required this.amount,
       required this.date,
       required this.time,
-      required this.category});
+      required this.category})
+      : id = uuid.v4();
 
+  final String id;
   final String title;
   final int amount;
   final DateTime date;
