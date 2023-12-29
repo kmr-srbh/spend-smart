@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:spend_smart/widgets/expense.dart';
+import 'package:spend_smart/models/expense.dart';
 
 class AddExpense extends StatefulWidget {
   const AddExpense({
