@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:spend_smart/models/expense.dart';
+
 import 'package:spend_smart/widgets/add_expense.dart';
-import 'package:spend_smart/widgets/expense.dart';
 import 'package:spend_smart/widgets/expense_list.dart';
 
 class Home extends StatefulWidget {
@@ -66,7 +67,14 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.info_outline_rounded),
+            )
+          ],
+        ),
         body: Column(
           children: [
             Padding(
@@ -92,24 +100,19 @@ class _HomeState extends State<Home> {
           label: const Text('Add expense'),
           icon: const Icon(Icons.add_rounded),
         ),
-        bottomNavigationBar: BottomAppBar(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.today_outlined),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.payments_outlined),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.account_circle_outlined),
-              ),
-            ],
-          ),
+        bottomNavigationBar: NavigationBar(
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.today_outlined),
+              selectedIcon: Icon(Icons.today_rounded),
+              label: "Today's Expenses",
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.date_range_outlined),
+              selectedIcon: Icon(Icons.date_range_rounded),
+              label: 'Past Expenses',
+            ),
+          ],
         ),
       );
 }
