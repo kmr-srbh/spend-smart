@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
-const uuid = Uuid();
+import 'package:hive/hive.dart';
 
+part 'expense.g.dart';
+
+@HiveType(typeId: 1)
 enum Category {
+  @HiveField(0)
   grocery,
+
+  @HiveField(1)
   work,
+
+  @HiveField(2)
   travel,
+
+  @HiveField(3)
   leisure,
+
+  @HiveField(4)
   bills,
+
+  @HiveField(5)
   medical,
 }
 
@@ -21,25 +34,33 @@ Map<Category, IconData> categoryIcons = {
   Category.medical: Icons.local_hospital_rounded,
 };
 
+@HiveType(typeId: 0)
 class Expense {
-  Expense(
-      {required this.title,
-      required this.amount,
-      required this.date,
-      required this.time,
-      required this.category})
-      : id = uuid.v4();
+  Expense({
+    required this.name,
+    required this.amount,
+    required this.category,
+    required this.date,
+    required this.time,
+  });
 
-  final String id;
-  final String title;
+  @HiveField(0)
+  final String name;
+
+  @HiveField(1)
   final int amount;
-  final DateTime date;
-  final TimeOfDay time;
+
+  @HiveField(2)
   final Category category;
 
-  // Expense.fromJson(this.id, this.title, this.amount, this.date, this.time, this.category)
+  @HiveField(3)
+  final DateTime date;
 
-  String get formattedDate => '${date.day}-${date.month}-${date.year}';
+  @HiveField(4)
+  final TimeOfDay time;
+
+  String get formattedDate =>
+      '${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}';
   String get formattedTime =>
       '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
 }
