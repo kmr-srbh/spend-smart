@@ -19,7 +19,7 @@ class ExpenseCard extends StatelessWidget {
                   Icon(categoryIcons[expense.category]),
                   const SizedBox(width: 8),
                   Text(
-                    expense.title,
+                    expense.name,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
