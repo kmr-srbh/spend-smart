@@ -8,8 +8,7 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:spend_smart/models/expense.dart';
-
-import 'package:spend_smart/widgets/home_screen.dart';
+import 'package:spend_smart/widgets/route_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,7 +65,7 @@ class _MainAppState extends State<MainApp> {
                 if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
                 } else {
-                  return const HomeScreen();
+                  return const RouteManager();
                 }
               } else {
                 return const Scaffold(
