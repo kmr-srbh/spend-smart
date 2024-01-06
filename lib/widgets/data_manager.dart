@@ -10,7 +10,9 @@ class DataManager {
   String get boxKey {
     DateTime today = DateTime.now();
     String key = '${today.day}-${today.month}-${today.year}';
-    if (!expenseBox.containsKey(key)) expenseBox.put(key, null);
+    if (!expenseBox.containsKey(key)) {
+      expenseBox.put(key, List<Expense>.empty());
+    }
     return key;
   }
 

@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import 'package:spend_smart/models/expense.dart';
+import 'package:spend_smart/widgets/TodayExpenses/today_expense_card.dart';
 import 'package:spend_smart/widgets/data_manager.dart';
 
-import 'package:spend_smart/widgets/expense_card.dart';
-
-class ExpenseList extends StatelessWidget {
-  ExpenseList({
+class TodayExpensesList extends StatelessWidget {
+  TodayExpensesList({
     super.key,
   });
 
