@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:hive/hive.dart';
-
 import 'package:spend_smart/models/expense.dart';
+import 'package:spend_smart/widgets/data_manager.dart';
 
 class AddExpenseForm extends StatefulWidget {
   const AddExpenseForm({super.key});
@@ -12,6 +11,8 @@ class AddExpenseForm extends StatefulWidget {
 }
 
 class _AddExpenseFormState extends State<AddExpenseForm> {
+  final DataManager dataManager = DataManager();
+
   final _formKey = GlobalKey<FormState>();
 
   final _nameController = TextEditingController();
@@ -51,10 +52,6 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
     setState(() {
       if (chosenTime != null) _selectedTime = chosenTime;
     });
-  }
-
-  void _addExpense(Expense expense) async {
-    await Hive.box('expenses').add(expense);
   }
 
   @override
@@ -165,7 +162,7 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      _addExpense(
+                      dataManager.add(
                         Expense(
                           name: _nameController.text,
                           amount: int.tryParse(_amountController.text) as int,
