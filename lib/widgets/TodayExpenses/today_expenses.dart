@@ -14,12 +14,14 @@ class TodayExpenses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Box expenseBox = dataManager.expenseBox;
+    final DateTime today = DateTime.now();
+    final String boxKey = dataManager.createBoxKey(today);
+
     return ValueListenableBuilder(
-      valueListenable: expenseBox.listenable(keys: [dataManager.boxKey]),
+      valueListenable: expenseBox.listenable(keys: [boxKey]),
       builder: (context, value, child) {
-        int totalExpenses =
-            List<Expense>.from(expenseBox.get(dataManager.boxKey)).fold(
-                0, (previousValue, element) => previousValue + element.amount);
+        int totalExpenses = List<Expense>.from(expenseBox.get(boxKey)).fold(
+            0, (previousValue, element) => previousValue + element.amount);
         return Container(
           child: totalExpenses == 0
               ? Center(
@@ -53,7 +55,7 @@ class TodayExpenses extends StatelessWidget {
                       ),
                     ),
                     Expanded(
-                      child: TodayExpensesList(),
+                      child: TodayExpensesList(boxKey: boxKey),
                     ),
                   ],
                 ),

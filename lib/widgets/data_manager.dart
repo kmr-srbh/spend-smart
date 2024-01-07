@@ -7,20 +7,17 @@ import 'package:spend_smart/models/expense.dart';
 class DataManager {
   final Box expenseBox = Hive.box('expenses');
 
-  String get boxKey {
-    DateTime today = DateTime.now();
-    String key = '${today.day}-${today.month}-${today.year}';
-    if (!expenseBox.containsKey(key)) {
-      expenseBox.put(key, List<Expense>.empty());
-    }
+  double toDouble(TimeOfDay time) => time.hour + time.minute / 60.0;
+
+  String createBoxKey(DateTime date) {
+    final String key = '${date.day}-${date.month}-${date.year}';
     return key;
   }
 
-  double toDouble(TimeOfDay time) => time.hour + time.minute / 60.0;
-
-  List<Expense> get expenses {
-    List<Expense> expenses = List<Expense>.from(expenseBox.get(boxKey));
-    return expenses;
+  List<Expense> expenses(DateTime expenseDate) {
+    List<Expense> expenseList =
+        List<Expense>.from(expenseBox.get(createBoxKey(expenseDate)) ?? []);
+    return expenseList;
   }
 
   List<Expense> sort(List<Expense> expenses) {
@@ -32,16 +29,16 @@ class DataManager {
   }
 
   void add(Expense expense) async {
-    List<Expense> newExpenseList = expenses;
+    List<Expense> newExpenseList = expenses(expense.date);
     newExpenseList.add(expense);
     newExpenseList = sort(newExpenseList);
-    await expenseBox.put(boxKey, newExpenseList);
+    await expenseBox.put(createBoxKey(expense.date), newExpenseList);
   }
 
   void remove(Expense expense) async {
-    List<Expense> newExpenseList = expenses;
+    List<Expense> newExpenseList = expenses(expense.date);
     newExpenseList.remove(expense);
     newExpenseList = sort(newExpenseList);
-    await expenseBox.put(boxKey, newExpenseList);
+    await expenseBox.put(createBoxKey(expense.date), newExpenseList);
   }
 }

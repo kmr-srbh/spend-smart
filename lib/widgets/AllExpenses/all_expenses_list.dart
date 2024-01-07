@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:hive_flutter/adapters.dart';
-
 import 'package:spend_smart/widgets/data_manager.dart';
 import 'package:spend_smart/widgets/AllExpenses/all_expense_card.dart';
 
@@ -12,12 +10,9 @@ class AllExpensesList extends StatelessWidget {
   final DataManager dataManager = DataManager();
 
   @override
-  Widget build(BuildContext context) => ValueListenableBuilder(
-        valueListenable: dataManager.expenseBox.listenable(),
-        builder: (context, value, child) => ListView.builder(
-          itemCount: expensesData.length,
-          itemBuilder: (context, index) =>
-              AllExpenseCard(expenseData: expensesData[index]),
-        ),
+  Widget build(BuildContext context) => ListView.builder(
+        itemCount: expensesData.length,
+        itemBuilder: (context, index) =>
+            AllExpenseCard(expenseData: expensesData[index]),
       );
 }
