@@ -4,11 +4,11 @@ import 'package:hive_flutter/adapters.dart';
 
 import 'package:spend_smart/models/expense.dart';
 
-import 'package:spend_smart/widgets/PastExpenses/past_expenses_list.dart';
+import 'package:spend_smart/widgets/AllExpenses/all_expenses_list.dart';
 import 'package:spend_smart/widgets/data_manager.dart';
 
-class PastExpenses extends StatelessWidget {
-  PastExpenses({super.key});
+class AllExpenses extends StatelessWidget {
+  AllExpenses({super.key});
 
   final DataManager dataManager = DataManager();
 
@@ -51,6 +51,6 @@ class PastExpenses extends StatelessWidget {
                   ],
                 ),
               )
-            : PastExpensesList(expensesData: expensesData);
+            : AllExpensesList(expensesData: expensesData);
       });
 }

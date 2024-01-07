@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import 'package:spend_smart/widgets/data_manager.dart';
-import 'package:spend_smart/widgets/PastExpenses/past_expense_card.dart';
+import 'package:spend_smart/widgets/AllExpenses/all_expense_card.dart';
 
-class PastExpensesList extends StatelessWidget {
-  PastExpensesList({super.key, required this.expensesData});
+class AllExpensesList extends StatelessWidget {
+  AllExpensesList({super.key, required this.expensesData});
 
   final List<Map<String, dynamic>> expensesData;
   final DataManager dataManager = DataManager();
@@ -17,7 +17,7 @@ class PastExpensesList extends StatelessWidget {
         builder: (context, value, child) => ListView.builder(
           itemCount: expensesData.length,
           itemBuilder: (context, index) =>
-              PastExpenseCard(expenseData: expensesData[index]),
+              AllExpenseCard(expenseData: expensesData[index]),
         ),
       );
 }

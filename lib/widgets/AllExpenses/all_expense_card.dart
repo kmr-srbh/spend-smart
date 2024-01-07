@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PastExpenseCard extends StatelessWidget {
-  const PastExpenseCard({super.key, required this.expenseData});
+class AllExpenseCard extends StatelessWidget {
+  const AllExpenseCard({super.key, required this.expenseData});
 
   final Map<String, dynamic> expenseData;
 

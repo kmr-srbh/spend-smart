@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:spend_smart/widgets/PastExpenses/past_expenses.dart';
+
+import 'package:spend_smart/widgets/AllExpenses/all_expenses.dart';
 import 'package:spend_smart/widgets/TodayExpenses/today_expenses.dart';
 import 'package:spend_smart/widgets/add_expense_form.dart';
 
@@ -14,7 +15,7 @@ class RouteManager extends StatefulWidget {
 class _RouteManagerState extends State<RouteManager> {
   late FloatingActionButton addExpense;
   int routeIndex = 0;
-  final List<Widget> routes = [TodayExpenses(), PastExpenses()];
+  final List<Widget> routes = [TodayExpenses(), AllExpenses()];
 
   @override
   void initState() {
@@ -47,11 +48,11 @@ class _RouteManagerState extends State<RouteManager> {
           NavigationDestination(
               icon: Icon(Icons.receipt_outlined),
               selectedIcon: Icon(Icons.receipt_rounded),
-              label: "Today's Expenses"),
+              label: 'Today'),
           NavigationDestination(
               icon: Icon(Icons.receipt_long_outlined),
               selectedIcon: Icon(Icons.receipt_long),
-              label: "Past Expenses"),
+              label: "All Expenses"),
         ],
         selectedIndex: routeIndex,
         onDestinationSelected: (value) => setState(() {
