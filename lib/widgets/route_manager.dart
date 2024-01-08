@@ -4,7 +4,6 @@ import 'package:spend_smart/widgets/AllExpenses/all_expenses.dart';
 import 'package:spend_smart/widgets/TodayExpenses/today_expenses.dart';
 import 'package:spend_smart/widgets/add_expense_form.dart';
 
-
 class RouteManager extends StatefulWidget {
   const RouteManager({super.key});
 
@@ -52,7 +51,7 @@ class _RouteManagerState extends State<RouteManager> {
           NavigationDestination(
               icon: Icon(Icons.receipt_long_outlined),
               selectedIcon: Icon(Icons.receipt_long),
-              label: "All Expenses"),
+              label: 'Overview'),
         ],
         selectedIndex: routeIndex,
         onDestinationSelected: (value) => setState(() {
