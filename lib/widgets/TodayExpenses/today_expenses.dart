@@ -20,8 +20,9 @@ class TodayExpenses extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: expenseBox.listenable(keys: [boxKey]),
       builder: (context, value, child) {
-        int totalExpenses = List<Expense>.from(expenseBox.get(boxKey)).fold(
-            0, (previousValue, element) => previousValue + element.amount);
+        int totalExpenses = List<Expense>.from(expenseBox.get(boxKey) ?? [])
+            .fold(
+                0, (previousValue, element) => previousValue + element.amount);
         return Container(
           child: totalExpenses == 0
               ? Center(
