@@ -32,7 +32,7 @@ class AllExpenses extends StatelessWidget {
             break;
           }
         }
-        return allExpenses[0].isEmpty
+        return expensesData.isEmpty
             ? Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -51,6 +51,8 @@ class AllExpenses extends StatelessWidget {
                   ],
                 ),
               )
-            : AllExpensesList(expensesData: expensesData);
+            : Column(children: [
+                Expanded(child: AllExpensesList(expensesData: expensesData)),
+              ]);
       });
 }
