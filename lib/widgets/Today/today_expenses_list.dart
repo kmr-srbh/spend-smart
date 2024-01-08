@@ -4,7 +4,7 @@ import 'package:hive_flutter/adapters.dart';
 
 import 'package:spend_smart/models/expense.dart';
 
-import 'package:spend_smart/widgets/TodayExpenses/today_expense_card.dart';
+import 'package:spend_smart/widgets/Today/today_expense_card.dart';
 import 'package:spend_smart/widgets/data_manager.dart';
 
 class TodayExpensesList extends StatelessWidget {
@@ -20,12 +20,12 @@ class TodayExpensesList extends StatelessWidget {
   Widget build(BuildContext context) {
     final Box expenseBox = dataManager.expenseBox;
 
-    final List<Expense> allExpenses =
+    final List<Expense> Overview =
         List<Expense>.from(expenseBox.get(boxKey) ?? []);
     return ListView.builder(
-      itemCount: allExpenses.length,
+      itemCount: Overview.length,
       itemBuilder: (buildContext, index) {
-        final Expense expense = allExpenses[index];
+        final Expense expense = Overview[index];
         return Dismissible(
           key: UniqueKey(),
           direction: DismissDirection.endToStart,
