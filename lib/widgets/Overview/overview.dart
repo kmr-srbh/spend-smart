@@ -4,11 +4,11 @@ import 'package:hive_flutter/adapters.dart';
 
 import 'package:spend_smart/models/expense.dart';
 
-import 'package:spend_smart/widgets/AllExpenses/all_expenses_list.dart';
+import 'package:spend_smart/widgets/Overview/overview_expenses_list.dart';
 import 'package:spend_smart/widgets/data_manager.dart';
 
-class AllExpenses extends StatelessWidget {
-  AllExpenses({super.key});
+class Overview extends StatelessWidget {
+  Overview({super.key});
 
   final DataManager dataManager = DataManager();
 
@@ -16,11 +16,11 @@ class AllExpenses extends StatelessWidget {
   Widget build(BuildContext context) => ValueListenableBuilder(
       valueListenable: dataManager.expenseBox.listenable(),
       builder: (context, value, child) {
-        List<List<Expense>> allExpenses = dataManager.expenseBox.values
+        List<List<Expense>> Overview = dataManager.expenseBox.values
             .map((element) => List<Expense>.from(element))
             .toList();
         List<Map<String, dynamic>> expensesData = [];
-        for (List<Expense> expensesList in allExpenses) {
+        for (List<Expense> expensesList in Overview) {
           if (expensesList.isNotEmpty) {
             expensesData.add({
               'date': expensesList[0].formattedDate,
@@ -52,7 +52,8 @@ class AllExpenses extends StatelessWidget {
                 ),
               )
             : Column(children: [
-                Expanded(child: AllExpensesList(expensesData: expensesData)),
+                Expanded(
+                    child: OverviewExpensesList(expensesData: expensesData)),
               ]);
       });
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:spend_smart/widgets/data_manager.dart';
-import 'package:spend_smart/widgets/AllExpenses/all_expense_card.dart';
+import 'package:spend_smart/widgets/Overview/overview_expense_card.dart';
 
-class AllExpensesList extends StatelessWidget {
-  AllExpensesList({super.key, required this.expensesData});
+class OverviewExpensesList extends StatelessWidget {
+  OverviewExpensesList({super.key, required this.expensesData});
 
   final List<Map<String, dynamic>> expensesData;
   final DataManager dataManager = DataManager();
@@ -13,6 +13,6 @@ class AllExpensesList extends StatelessWidget {
   Widget build(BuildContext context) => ListView.builder(
         itemCount: expensesData.length,
         itemBuilder: (context, index) =>
-            AllExpenseCard(expenseData: expensesData[index]),
+            OverviewExpenseCard(expenseData: expensesData[index]),
       );
 }
