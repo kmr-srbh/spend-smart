@@ -1,3 +1,3 @@
-# spend_smart
+# Spend Smart
 
-A new Flutter project.
+A simple expense tracking app built using Flutter for personal use.
