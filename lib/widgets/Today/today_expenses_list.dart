@@ -20,12 +20,12 @@ class TodayExpensesList extends StatelessWidget {
   Widget build(BuildContext context) {
     final Box expenseBox = dataManager.expenseBox;
 
-    final List<Expense> Overview =
-        List<Expense>.from(expenseBox.get(boxKey) ?? []);
+    final List<Expense> expenses =
+        List<Expense>.from(expenseBox.get(boxKey));
     return ListView.builder(
-      itemCount: Overview.length,
+      itemCount: expenses.length,
       itemBuilder: (buildContext, index) {
-        final Expense expense = Overview[index];
+        final Expense expense = expenses[index];
         return Dismissible(
           key: UniqueKey(),
           direction: DismissDirection.endToStart,
