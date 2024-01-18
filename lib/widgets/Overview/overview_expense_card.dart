@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 class OverviewExpenseCard extends StatelessWidget {
-  const OverviewExpenseCard({super.key, required this.expenseData});
+  const OverviewExpenseCard({super.key, required this.expensesData});
 
-  final Map<String, dynamic> expenseData;
+  final Map<String, dynamic> expensesData;
+
+  String get formattedDate =>
+      '${expensesData['date'].day.toString().padLeft(2, '0')}-${expensesData['date'].month.toString().padLeft(2, '0')}-${expensesData['date'].year}';
 
   @override
   Widget build(BuildContext context) => Card(
@@ -13,13 +16,13 @@ class OverviewExpenseCard extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                '${expenseData["date"]} (${expenseData["totalTransactions"]})',
+                '$formattedDate (${expensesData["totalTransactions"]})',
                 style:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               const Spacer(),
               Text(
-                '₹ ${expenseData['totalAmount']}',
+                '₹ ${expensesData['totalAmount']}',
               )
             ],
           ),
