@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:spend_smart/models/expense.dart';
 
 class ExpenseCard extends StatelessWidget {
@@ -15,31 +16,28 @@ class ExpenseCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Icon(categoryIcons[expense.category]),
                   const SizedBox(width: 8),
-                  Text(
-                    expense.name,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: Text(
+                      expense.name,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
+                  const Spacer(),
+                  Text('₹ ${expense.amount.toString()}'),
                 ],
               ),
               const SizedBox(height: 16),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text('₹ ${expense.amount.toString()}'),
-                  const Spacer(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(expense.formattedTime),
-                      Text(expense.formattedDate),
-                    ],
-                  )
+                  Text(expense.formattedTime),
                 ],
               )
             ],
