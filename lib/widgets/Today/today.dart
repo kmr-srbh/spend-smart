@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:hive_flutter/adapters.dart';
 
 import 'package:spend_smart/models/expense.dart';
@@ -15,14 +16,14 @@ class TodayExpenses extends StatelessWidget {
   Widget build(BuildContext context) {
     final Box expenseBox = dataManager.expenseBox;
     final DateTime today = DateTime.now();
-    final String boxKey = dataManager.createBoxKey(today);
+    final String boxKey = dataManager.boxKey(today);
+    dataManager.createBoxIfAbsent(today);
 
     return ValueListenableBuilder(
       valueListenable: expenseBox.listenable(keys: [boxKey]),
       builder: (context, value, child) {
-        int totalExpenses = List<Expense>.from(expenseBox.get(boxKey) ?? [])
-            .fold(
-                0, (previousValue, element) => previousValue + element.amount);
+        int totalExpenses = List<Expense>.from(expenseBox.get(boxKey)).fold(
+            0, (previousValue, element) => previousValue + element.amount);
         return Container(
           child: totalExpenses == 0
               ? Center(
@@ -31,7 +32,7 @@ class TodayExpenses extends StatelessWidget {
                     children: [
                       Image.asset(
                         'assets/images/woolly-silver-safe-with-dollars-flying-out.png',
-                        width: 240,
+                        width: 192,
                       ),
                       const SizedBox(height: 36),
                       const Text(
