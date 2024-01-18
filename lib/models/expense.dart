@@ -64,3 +64,11 @@ class Expense {
   String get formattedTime =>
       '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
 }
+
+final Expense zeroExpense = Expense(
+  name: 'Zero Expense',
+  amount: 0,
+  category: Category.grocery,
+  date: DateTime.now(),
+  time: TimeOfDay.now(),
+);
