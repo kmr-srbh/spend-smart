@@ -1,3 +1,3 @@
 # Spend Smart
 
-A simple expense tracking app built using Flutter for personal use.
+A simple cross-platform mobile app for expense tracking, built using Flutter.
