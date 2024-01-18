@@ -10,9 +10,13 @@ class OverviewExpensesList extends StatelessWidget {
   final DataManager dataManager = DataManager();
 
   @override
-  Widget build(BuildContext context) => ListView.builder(
-        itemCount: expensesData.length,
-        itemBuilder: (context, index) =>
-            OverviewExpenseCard(expenseData: expensesData[index]),
-      );
+  Widget build(BuildContext context) {
+    expensesData.sort((firstExpense, secondExpense) =>
+        secondExpense['date'].compareTo(firstExpense['date']));
+    return ListView.builder(
+      itemCount: expensesData.length,
+      itemBuilder: (context, index) =>
+          OverviewExpenseCard(expensesData: expensesData[index]),
+    );
+  }
 }
