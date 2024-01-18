@@ -48,14 +48,10 @@ class _MainAppState extends State<MainApp> {
       builder: (lightDynamic, darkDynamic) => AnnotatedRegion(
         value: SystemUiOverlayStyle(
           systemNavigationBarColor: isDarkMode
-              ? ElevationOverlay.applySurfaceTint(
-                  Theme.of(context).colorScheme.onSurface,
-                  Theme.of(context).primaryColorDark,
-                  3.0)
-              : ElevationOverlay.applySurfaceTint(
-                  Theme.of(context).colorScheme.surface,
-                  Theme.of(context).colorScheme.onSurface,
-                  3.0),
+              ? (darkDynamic?.background ??
+                  ThemeData.dark().colorScheme.background)
+              : (lightDynamic?.background ??
+                  ThemeData.light().colorScheme.background),
         ),
         child: MaterialApp(
           home: FutureBuilder(
