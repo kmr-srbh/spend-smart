@@ -1,7 +1,7 @@
 name: spend_smart
-description: "A new Flutter project."
+description: "A simple cross-platform mobile app for expense tracking."
 publish_to: "none"
-version: 0.1.0
+version: 0.1.1
 
 environment:
   sdk: ">=3.2.3 <4.0.0"
@@ -26,8 +26,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-  # Illustration by <a href="https://icons8.com/illustrations/author/zD2oqC8lLBBA">Icons 8</a> from <a href="https://icons8.com/illustrations">Ouch!</a>
-  # Illustration by <a href="https://icons8.com/illustrations/author/zD2oqC8lLBBA">Icons 8</a> from <a href="https://icons8.com/illustrations">Ouch!</a>
+    # Attribution:
+    #   "https://icons8.com/illustrations/author/zD2oqC8lLBBA"
     - assets/images/
 
 flutter_launcher_icons:
