@@ -37,6 +37,8 @@ class Overview extends StatelessWidget {
               });
             }
           }
+          expensesData.sort((firstExpense, secondExpense) =>
+              secondExpense['date'].compareTo(firstExpense['date']));
           return expensesData.isEmpty
               ? Center(
                   child: Column(
@@ -58,6 +60,7 @@ class Overview extends StatelessWidget {
                 )
               : Column(children: [
                   OverviewChart(expensesData: expensesData),
+                  const SizedBox(height: 24),
                   Expanded(
                       child: OverviewExpensesList(expensesData: expensesData)),
                 ]);
