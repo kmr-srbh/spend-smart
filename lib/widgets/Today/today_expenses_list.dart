@@ -20,8 +20,7 @@ class TodayExpensesList extends StatelessWidget {
   Widget build(BuildContext context) {
     final Box expenseBox = dataManager.expenseBox;
 
-    final List<Expense> expenses =
-        List<Expense>.from(expenseBox.get(boxKey));
+    final List<Expense> expenses = List<Expense>.from(expenseBox.get(boxKey));
     return ListView.builder(
       itemCount: expenses.length,
       itemBuilder: (buildContext, index) {
@@ -62,11 +61,8 @@ class TodayExpensesList extends StatelessWidget {
               context: context,
               builder: (dialogContext) {
                 return AlertDialog(
-                  title: const Row(children: [
-                    Icon(Icons.error_outline_rounded),
-                    SizedBox(width: 8),
-                    Text('Delete?')
-                  ]),
+                  icon: const Icon(Icons.delete_forever_rounded),
+                  title: const Text('Delete?'),
                   content: const Text(
                       'Are you sure you want to delete this expense?'),
                   actions: [
@@ -80,11 +76,7 @@ class TodayExpensesList extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(dialogContext).pop(true);
                       },
-                      style: TextButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.error,
-                        foregroundColor: Theme.of(context).colorScheme.onError,
-                      ),
-                      child: const Text('Yes, delete'),
+                      child: const Text('Yes'),
                     ),
                   ],
                 );
