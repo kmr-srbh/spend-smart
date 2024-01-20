@@ -11,8 +11,6 @@ class OverviewExpensesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    expensesData.sort((firstExpense, secondExpense) =>
-        secondExpense['date'].compareTo(firstExpense['date']));
     return ListView.builder(
       itemCount: expensesData.length,
       itemBuilder: (context, index) =>
