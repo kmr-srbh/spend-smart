@@ -37,21 +37,25 @@ class _RouteManagerState extends State<RouteManager> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          bottom: const TabBar(
-            tabs: [
-              Tab(icon: Icon(Icons.payments_outlined), text: 'Today'),
-              Tab(icon: Icon(Icons.analytics_outlined), text: 'Overview'),
-            ],
-          ),
-        ),
-        body: TabBarView(
-          children: [TodayExpenses(), Overview()],
-        ),
-        floatingActionButton: addExpense,
+    return Scaffold(
+      appBar: AppBar(),
+      body: routes[routeIndex],
+      floatingActionButton: routeIndex == 0 ? addExpense : null,
+      bottomNavigationBar: NavigationBar(
+        destinations: const [
+          NavigationDestination(
+              icon: Icon(Icons.receipt_outlined),
+              selectedIcon: Icon(Icons.receipt_rounded),
+              label: 'Today'),
+          NavigationDestination(
+              icon: Icon(Icons.receipt_long_outlined),
+              selectedIcon: Icon(Icons.receipt_long),
+              label: 'Overview'),
+        ],
+        selectedIndex: routeIndex,
+        onDestinationSelected: (value) => setState(() {
+          routeIndex = value;
+        }),
       ),
     );
   }
