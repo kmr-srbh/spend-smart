@@ -22,8 +22,8 @@ class DataManager {
   }
 
   List<Expense> expenses(DateTime expenseDate) {
-    List<Expense> expenseList =
-        List<Expense>.from(expenseBox.get(boxKey(expenseDate)));
+    List<Expense> expenseList = List<Expense>.from(
+        expenseBox.get(boxKey(expenseDate), defaultValue: [zeroExpense]));
     return expenseList;
   }
 
