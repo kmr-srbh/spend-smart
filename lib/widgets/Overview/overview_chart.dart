@@ -20,13 +20,18 @@ class OverviewChart extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 1.33,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(8, 56, 24, 0),
+        padding: const EdgeInsets.fromLTRB(8, 48, 24, 0),
         child: LineChart(
           curve: Curves.linear,
           LineChartData(
             minX: 1,
             maxX: 7,
             minY: 0,
+            lineTouchData: const LineTouchData(
+                touchTooltipData: LineTouchTooltipData(
+              fitInsideHorizontally: true,
+              fitInsideVertically: true,
+            )),
             borderData: FlBorderData(show: false),
             gridData: FlGridData(
               show: true,
@@ -74,10 +79,13 @@ class OverviewChart extends StatelessWidget {
                   getTitlesWidget: (value, meta) {
                     if (value == meta.max) {
                       return SideTitleWidget(
-                          axisSide: meta.axisSide, child: const Text(''));
+                        axisSide: meta.axisSide,
+                        child: const Text(''),
+                      );
                     } else {
                       return SideTitleWidget(
                           axisSide: meta.axisSide,
+                          space: 12,
                           child: Text(
                             value.toInt().toString(),
                             textAlign: TextAlign.left,
@@ -91,7 +99,7 @@ class OverviewChart extends StatelessWidget {
                 sideTitles: SideTitles(
                     showTitles: true,
                     interval: 1,
-                    reservedSize: 36,
+                    reservedSize: 56,
                     getTitlesWidget: (value, meta) {
                       List<Text> titleData = expensesData
                           .take(7)
@@ -108,6 +116,7 @@ class OverviewChart extends StatelessWidget {
                       try {
                         return SideTitleWidget(
                             axisSide: meta.axisSide,
+                            space: 12,
                             child: titleData[value.toInt() - 1]);
                       } catch (e) {
                         return SideTitleWidget(
