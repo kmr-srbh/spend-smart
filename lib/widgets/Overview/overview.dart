@@ -60,7 +60,6 @@ class Overview extends StatelessWidget {
                 )
               : Column(children: [
                   OverviewChart(expensesData: expensesData),
-                  const SizedBox(height: 24),
                   Expanded(
                       child: OverviewExpensesList(expensesData: expensesData)),
                 ]);
