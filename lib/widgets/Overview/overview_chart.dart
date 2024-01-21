@@ -75,7 +75,7 @@ class OverviewChart extends StatelessWidget {
                 drawBelowEverything: true,
                 sideTitles: SideTitles(
                   showTitles: true,
-                  reservedSize: 48,
+                  reservedSize: 56,
                   getTitlesWidget: (value, meta) {
                     if (value == meta.max) {
                       return SideTitleWidget(
@@ -111,6 +111,8 @@ class OverviewChart extends StatelessWidget {
                                     .toString()
                                     .padLeft(2, '0'),
                                 textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ))
                           .toList();
                       try {
