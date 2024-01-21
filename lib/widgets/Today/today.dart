@@ -4,7 +4,7 @@ import 'package:hive_flutter/adapters.dart';
 
 import 'package:spend_smart/models/expense.dart';
 
-import 'package:spend_smart/widgets/data_manager.dart';
+import 'package:spend_smart/data_manager.dart';
 import 'package:spend_smart/widgets/Today/today_expenses_list.dart';
 
 class TodayExpenses extends StatelessWidget {

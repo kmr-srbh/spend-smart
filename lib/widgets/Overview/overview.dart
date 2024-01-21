@@ -6,7 +6,7 @@ import 'package:spend_smart/models/expense.dart';
 import 'package:spend_smart/widgets/Overview/overview_chart.dart';
 
 import 'package:spend_smart/widgets/Overview/overview_expenses_list.dart';
-import 'package:spend_smart/widgets/data_manager.dart';
+import 'package:spend_smart/data_manager.dart';
 
 class Overview extends StatelessWidget {
   Overview({super.key});

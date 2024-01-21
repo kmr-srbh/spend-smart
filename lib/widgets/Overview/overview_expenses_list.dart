@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:spend_smart/widgets/data_manager.dart';
+import 'package:spend_smart/data_manager.dart';
 import 'package:spend_smart/widgets/Overview/overview_expense_card.dart';
 
 class OverviewExpensesList extends StatelessWidget {
