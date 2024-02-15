@@ -31,12 +31,12 @@ class TodayExpenses extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        'assets/images/woolly-silver-safe-with-dollars-flying-out.png',
-                        width: 192,
+                        'assets/images/casual-life-3d-cardboard-boxes.png',
+                        width: 300,
                       ),
                       const SizedBox(height: 36),
                       const Text(
-                        'Seems like you are on\n a saving spree today',
+                        'No expenses.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
