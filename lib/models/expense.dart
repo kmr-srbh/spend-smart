@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:hive/hive.dart';
+import 'package:uuid/uuid.dart';
 
 part 'expense.g.dart';
+
+Uuid uuid = const Uuid();
 
 @HiveType(typeId: 1)
 enum Category {
@@ -42,21 +45,24 @@ class Expense {
     required this.category,
     required this.date,
     required this.time,
-  });
+  }) : id = uuid.v4();
 
   @HiveField(0)
-  final String name;
+  final String id;
 
   @HiveField(1)
-  final int amount;
+  final String name;
 
   @HiveField(2)
-  final Category category;
+  final int amount;
 
   @HiveField(3)
-  final DateTime date;
+  final Category category;
 
   @HiveField(4)
+  final DateTime date;
+
+  @HiveField(5)
   final TimeOfDay time;
 
   String get formattedDate =>
