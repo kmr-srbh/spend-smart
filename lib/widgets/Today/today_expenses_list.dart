@@ -26,7 +26,7 @@ class TodayExpensesList extends StatelessWidget {
       itemBuilder: (buildContext, index) {
         final Expense expense = expenses[index];
         return Dismissible(
-          key: UniqueKey(),
+          key: ValueKey(expense.id),
           direction: DismissDirection.endToStart,
           background: ColoredBox(
             color: Theme.of(context).colorScheme.error,
@@ -54,33 +54,6 @@ class TodayExpensesList extends StatelessWidget {
                   },
                 ),
               ),
-            );
-          },
-          confirmDismiss: (direction) async {
-            return await showDialog(
-              context: context,
-              builder: (dialogContext) {
-                return AlertDialog(
-                  icon: const Icon(Icons.delete_forever_rounded),
-                  title: const Text('Delete?'),
-                  content: const Text(
-                      'Are you sure you want to delete this expense?'),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(dialogContext).pop(false);
-                      },
-                      child: const Text('No'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(dialogContext).pop(true);
-                      },
-                      child: const Text('Yes'),
-                    ),
-                  ],
-                );
-              },
             );
           },
           child: ExpenseCard(expense: expense),
