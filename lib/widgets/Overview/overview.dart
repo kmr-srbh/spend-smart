@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:hive_flutter/adapters.dart';
 
-import 'package:spend_smart/models/expense.dart';
-import 'package:spend_smart/widgets/Overview/overview_chart.dart';
-
-import 'package:spend_smart/widgets/Overview/overview_expenses_list.dart';
 import 'package:spend_smart/data_manager.dart';
+
+import 'package:spend_smart/models/expense.dart';
+
+import 'package:spend_smart/widgets/Overview/overview_chart.dart';
+import 'package:spend_smart/widgets/Overview/overview_expenses_list.dart';
+
 
 class Overview extends StatelessWidget {
   Overview({super.key});
@@ -39,30 +41,12 @@ class Overview extends StatelessWidget {
           }
           expensesData.sort((firstExpense, secondExpense) =>
               secondExpense['date'].compareTo(firstExpense['date']));
-          return expensesData.isEmpty
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/woolly-hand-with-mobile-phone.png',
-                        width: 200,
-                      ),
-                      const SizedBox(height: 36),
-                      const Text(
-                        'All your past expenses\n will be shown here',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                )
-              : Column(children: [
-                  OverviewChart(expensesData: expensesData),
-                  Expanded(
-                      child: OverviewExpensesList(expensesData: expensesData)),
-                ]);
+          return Column(children: [
+            expensesData.length == 1 && expensesData[0]['totalAmount'] == 0
+                ? const SizedBox()
+                : OverviewChart(expensesData: expensesData),
+            Expanded(child: OverviewExpensesList(expensesData: expensesData)),
+          ]);
         },
       );
 }
