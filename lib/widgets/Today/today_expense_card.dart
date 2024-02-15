@@ -12,34 +12,39 @@ class ExpenseCard extends StatelessWidget {
         margin: const EdgeInsets.fromLTRB(12, 12, 12, 0),
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Column(
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(categoryIcons[expense.category]),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      expense.name,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+              Icon(categoryIcons[expense.category]),
+              Expanded(
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            expense.name,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        const Spacer(),
+                        Text('₹ ${expense.amount.toString()}'),
+                      ],
                     ),
-                  ),
-                  const Spacer(),
-                  Text('₹ ${expense.amount.toString()}'),
-                ],
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(expense.formattedTime),
+                      ],
+                    )
+                  ],
+                ),
               ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(expense.formattedTime),
-                ],
-              )
             ],
           ),
         ),
