@@ -10,17 +10,16 @@ class OverviewChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double d = 0;
-    List<FlSpot> points = expensesData
-        .take(7)
-        .toList()
-        .reversed
+    List<Map<String, dynamic>> pointData =
+        expensesData.take(7).toList().reversed.toList();
+    List<FlSpot> points = pointData
         .map((e) => FlSpot(++d, (e['totalAmount'] as int).toDouble()))
         .toList();
 
     return AspectRatio(
       aspectRatio: 1.33,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(8, 48, 24, 0),
+        padding: const EdgeInsets.fromLTRB(8, 24, 24, 0),
         child: LineChart(
           curve: Curves.linear,
           LineChartData(
@@ -49,6 +48,7 @@ class OverviewChart extends StatelessWidget {
                 isCurved: true,
                 isStrokeCapRound: true,
                 barWidth: 3,
+                preventCurveOverShooting: true,
                 belowBarData: BarAreaData(
                   show: true,
                   gradient: LinearGradient(colors: [
@@ -75,7 +75,7 @@ class OverviewChart extends StatelessWidget {
                 drawBelowEverything: true,
                 sideTitles: SideTitles(
                   showTitles: true,
-                  reservedSize: 56,
+                  reservedSize: 48,
                   getTitlesWidget: (value, meta) {
                     if (value == meta.max) {
                       return SideTitleWidget(
@@ -83,13 +83,25 @@ class OverviewChart extends StatelessWidget {
                         child: const Text(''),
                       );
                     } else {
-                      return SideTitleWidget(
+                      if (value >= 1000) {
+                        String valueText = '${(value.toInt() / 1000)}K';
+                        return SideTitleWidget(
+                            axisSide: meta.axisSide,
+                            space: 12,
+                            child: Text(
+                              valueText,
+                              textAlign: TextAlign.left,
+                            ));
+                      } else {
+                        return SideTitleWidget(
                           axisSide: meta.axisSide,
                           space: 12,
                           child: Text(
                             value.toInt().toString(),
                             textAlign: TextAlign.left,
-                          ));
+                          ),
+                        );
+                      }
                     }
                   },
                 ),
@@ -101,20 +113,19 @@ class OverviewChart extends StatelessWidget {
                     interval: 1,
                     reservedSize: 56,
                     getTitlesWidget: (value, meta) {
-                      List<Text> titleData = expensesData
-                          .take(7)
-                          .toList()
-                          .reversed
-                          .map((e) => Text(
-                                (e['date'] as DateTime)
-                                    .day
-                                    .toString()
-                                    .padLeft(2, '0'),
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ))
-                          .toList();
+                      String title;
+                      List<Text> titleData = pointData.map((e) {
+                        if ((e['date'] as DateTime).day == DateTime.now().day) {
+                          title = 'Today';
+                        } else {
+                          title =
+                              '${(e['date'] as DateTime).day.toString().padLeft(2, '0')}/${(e['date'] as DateTime).month.toString().padLeft(2, '0')}';
+                        }
+                        return Text(
+                          title,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        );
+                      }).toList();
                       try {
                         return SideTitleWidget(
                             axisSide: meta.axisSide,
